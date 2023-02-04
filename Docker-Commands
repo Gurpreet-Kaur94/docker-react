@@ -1,0 +1,84 @@
+
+Docker run image-name default command
+
+Docker ps — show all currently running containers
+Docker ps -all — show all currently and ever ran containers
+Docker create image-name default command — will give the container id which can be used to start it
+Docker start container-id
+Docker system prune — clears all images and containers from the disk
+
+Docker logs container-id — show the logs of the container
+Docker stop container-id  — stop the container and allows the process to do some cleanup work. If the process doesn’t stop within 10 sec then docker will issue docker kill command.
+
+Docker kill container-id — shut down the container process immediately.
+Docker exec -it container-id command to execute -- allows to run additional command in the running container. It flag allows us to provide input to the container.
+Docker exec -it container-id sh — to run shell in the running container. To stop it issue ctrl+d command.
+
+
+GRmann94@#94
+
+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
+
+Docker file is a configuration file which defines how should our container behave. What programs container going to contain and what it does when it starts up as a container.
+
+
+
+From/Run/CMD  {followed by the argument to the instruction} — the docker instructions telling the docker server what to do
+
+Base images include default set of programs which might essential for achieving for your goals
+
+
+Image tag format — your docker id / repo or project name / version — gurpreetkaur94/redis-latest
+
+Docker push gurpreetkaur94/practice:latest
+
+Docker run -p 8080(host port):8080(container port) image-name
+
+Copy ./(current directory on host) ./(current dir in container)
+
+
+Working directory
+
+WORKDIR folder-name — it will set the working directory and will copy project files/dependencies into the working dir which is best practice and when we execute any command later on using exec command it will be run the working dir by default.
+
+
+TO minimise the rebuild after we change any project source file…
+Isolate the copying of files which don’t change frequently before all steps and the changing files after the bigger step..
+
+
+Docker-compose up
+
+Docker-compose up —build
+Docker-compose up -d — run the containers in the background.
+
+Docker-compose down — stop all containers
+
+Docker build -f Dockerfile.dev . — to build the image using specific docker file.
+
+
+Docker Volumes
+
+Docker run -p 3000:3000 -v /app/node_modules(don’t override this folder in container) -v $(pwd):/app container-id
+
+Second -v tells that don’t copy the folders instead put a reference to the current working directory so that If we make any change in the current dir folders ie project files it will be reflected automatically.
+
+
+Volumes shorthand is in docker-compose file volumes 
+	- /app/node_modules
+	- .:/app
+
+Live updating tests
+1. Is run the container and then get the id of the container - then run docker exec -it container-id npm run test
+2. Add the service In compose file which will have command:[“npm”, “run”, “test”] and build and volumes
+3. 
+    
+
+
+
+
+Docker debugging
+
+
+
+
+
